@@ -1,0 +1,82 @@
+apply plugin: 'com.android.application'
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
+    buildToolsVersion globalConfiguration.getAt("buildToolsVersion")
+
+    defaultConfig {
+        minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+        targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+
+        applicationId globalConfiguration.getAt("androidApplicationId")
+        versionCode globalConfiguration.getAt("androidVersionCode")
+        versionName globalConfiguration.getAt("androidVersionName")
+        testInstrumentationRunner globalConfiguration.getAt("testInstrumentationRunner")
+        testApplicationId globalConfiguration.getAt("testApplicationId")
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+    }
+
+    lintOptions {
+        quiet true
+        abortOnError false
+        ignoreWarnings true
+        disable 'InvalidPackage'            //Some libraries have issues with this.
+        disable 'OldTargetApi'
+        disable 'IconDensities'             //For testing purpose. This is safe to remove.
+        disable 'IconMissingDensityFolder'  //For testing purpose. This is safe to remove.
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+dependencies {
+    def coreDependencies = rootProject.ext.coreDependencies
+    def coreTestDependencies = rootProject.ext.coreTestDependencies
+    def presentationDependencies = rootProject.ext.presentationDependencies
+    def presentationTestDependencies = rootProject.ext.presentationTestDependencies
+    def developmentDependencies = rootProject.ext.developmentDependencies
+//
+    implementation project(':domain')
+    implementation project(':data')
+//
+    implementation coreDependencies.dagger
+    annotationProcessor coreDependencies.daggerCompiler
+    implementation coreDependencies.butterKnife
+    annotationProcessor coreDependencies.butterKnife
+    implementation coreDependencies.rxJava
+    implementation coreDependencies.rxAndroid
+    compileOnly coreDependencies.javaxAnnotation
+
+    implementation presentationDependencies.appcompat
+    implementation presentationDependencies.constraintLayout
+//
+    testImplementation coreTestDependencies.junit
+    testImplementation coreTestDependencies.mockito
+    testImplementation presentationTestDependencies.mockitoInline
+    androidTestImplementation coreTestDependencies.junit
+    androidTestImplementation coreTestDependencies.mockito
+    androidTestImplementation presentationTestDependencies.mockitoAndroid
+    androidTestImplementation presentationTestDependencies.espresso
+    androidTestImplementation presentationTestDependencies.espressoIntents
+//
+//    //Development
+    implementation developmentDependencies.leakCanary
+}

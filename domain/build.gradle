@@ -1,0 +1,31 @@
+apply plugin: 'java'
+
+//noinspection GroovyUnusedAssignment
+sourceCompatibility = 1.8
+//noinspection GroovyUnusedAssignment
+targetCompatibility = 1.8
+
+configurations {
+    provided
+}
+
+sourceSets {
+    main {
+        compileClasspath += configurations.provided
+    }
+}
+
+dependencies {
+
+    def coreDependencies = rootProject.ext.coreDependencies
+    def coreTestDependencies = rootProject.ext.coreTestDependencies
+
+    compileOnly coreDependencies.javaxAnnotation
+
+    implementation coreDependencies.javaxInject
+    implementation coreDependencies.rxJava
+    testImplementation coreTestDependencies.junit
+    testImplementation coreTestDependencies.mockito
+
+}
+
