@@ -25,6 +25,7 @@ ext {
     okhttpVersion = '3.9.1'
     jacksonVersion = '2.9.0'
     timberVersion = '4.5.1'
+    roomVersion = '2.0.0-beta01'
 
 
     //Testing
@@ -72,6 +73,10 @@ ext {
             okhttpInterceptor:      "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}",
             jacksonCore:            "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}",
             jacksonDatabind:        "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}",
+            retrofitRxAdapter:      "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+            retrofitJackson:        "com.squareup.retrofit2:converter-jackson:${retrofitVersion}",
+            room:                   "androidx.room:room-runtime:${roomVersion}",
+            roomCompiler:           "androidx.room:room-compiler:${roomVersion}",
     ]
 
     developmentDependencies = [

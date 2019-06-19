@@ -53,12 +53,18 @@ dependencies {
     implementation coreDependencies.javaxInject
     implementation coreDependencies.rxJava
     implementation coreDependencies.rxAndroid
+    implementation coreDependencies.dagger
+    annotationProcessor coreDependencies.daggerCompiler
 
     implementation dataDependencies.retrofit
+    implementation dataDependencies.retrofitRxAdapter
+    implementation dataDependencies.retrofitJackson
     implementation dataDependencies.okhttp
     implementation dataDependencies.okhttpInterceptor
     implementation dataDependencies.jacksonCore
     implementation dataDependencies.jacksonDatabind
+    implementation dataDependencies.room
+    annotationProcessor dataDependencies.roomCompiler
 //
     testImplementation testDependencies.junit
     testImplementation testDependencies.mockito
