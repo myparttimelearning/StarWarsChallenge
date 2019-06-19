@@ -1,9 +1,3 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-}
-
 apply plugin: 'com.android.library'
 
 android {
@@ -49,22 +43,21 @@ dependencies {
     def testDependencies = rootProject.ext.coreTestDependencies
 //
     implementation project(':domain')
-    compileOnly coreDependencies.javaxAnnotation
-    implementation coreDependencies.javaxInject
-    implementation coreDependencies.rxJava
-    implementation coreDependencies.rxAndroid
-    implementation coreDependencies.dagger
-    annotationProcessor coreDependencies.daggerCompiler
-
-    implementation dataDependencies.retrofit
-    implementation dataDependencies.retrofitRxAdapter
-    implementation dataDependencies.retrofitJackson
     implementation dataDependencies.okhttp
     implementation dataDependencies.okhttpInterceptor
     implementation dataDependencies.jacksonCore
     implementation dataDependencies.jacksonDatabind
+    implementation coreDependencies.javaxInject
+    implementation coreDependencies.rxJava
+    implementation coreDependencies.rxAndroid
+    implementation dataDependencies.retrofit
+    implementation dataDependencies.retrofitRxAdapter
+    implementation dataDependencies.retrofitJackson
     implementation dataDependencies.room
     annotationProcessor dataDependencies.roomCompiler
+
+    implementation coreDependencies.dagger
+    annotationProcessor coreDependencies.daggerCompiler
 //
     testImplementation testDependencies.junit
     testImplementation testDependencies.mockito

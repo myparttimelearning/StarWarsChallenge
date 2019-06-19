@@ -1,7 +1,7 @@
 package com.rugemo.data;
 
 public class ApiSettings {
-    public String host() {
+    public final String host() {
         return "swapi.co/api";
     }
 }

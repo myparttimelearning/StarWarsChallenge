@@ -1,7 +1,7 @@
 package com.rugemo.data.network;
 
 import com.rugemo.data.ApiSettings;
-import com.rugemo.data.AppModule;
+import com.rugemo.data.DataModule;
 
 import javax.inject.Singleton;
 
@@ -14,12 +14,12 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-@Module(includes = AppModule.class)
-public class NetworkModule {
+@Module(includes = DataModule.class)
+class NetworkModule {
 
     @Provides
     @Singleton
-    public OkHttpClient providesClient() {
+    OkHttpClient providesClient() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
 
@@ -39,4 +39,17 @@ public class NetworkModule {
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
     }
+
+    @Provides
+    @Singleton
+    NetworkService providesApiService(ApiSettings apiSettings) {
+        return providesRetrofit(apiSettings, providesClient()).create(NetworkService.class);
+    }
+
+    @Provides
+    @Singleton
+    RestApi providesRestApi(RestApiManager restApiManager){
+        return restApiManager;
+    }
+
 }

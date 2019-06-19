@@ -4,20 +4,20 @@ import android.app.Application;
 
 import androidx.room.Room;
 
-import com.rugemo.data.AppModule;
-import com.rugemo.data.db.favouritecharacters.FavouriteCharacterDAO;
+import com.rugemo.data.DataModule;
+import com.rugemo.data.db.model.FavouriteCharacterDAO;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 
-@Module(includes = AppModule.class)
-public class DatabaseModule {
+@Module(includes = DataModule.class)
+class DatabaseModule {
 
     @Provides
     @Singleton
-    public FavouriteCharacterDatabase providesFavouriteCharacterDatabase(Application application) {
+    FavouriteCharacterDatabase providesFavouriteCharacterDatabase(Application application) {
         return Room.databaseBuilder(application.getApplicationContext(),
                 FavouriteCharacterDatabase.class,
                 FavouriteCharacterDatabase.DB_NAME)
@@ -27,8 +27,7 @@ public class DatabaseModule {
 
     @Singleton
     @Provides
-    public FavouriteCharacterDAO providesFavouriteCharacterDAO(FavouriteCharacterDatabase favouriteCharacterDatabase) {
+    FavouriteCharacterDAO providesFavouriteCharacterDAO(FavouriteCharacterDatabase favouriteCharacterDatabase) {
         return favouriteCharacterDatabase.favouriteCharacterDAO();
     }
-
 }
